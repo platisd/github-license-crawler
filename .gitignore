@@ -1,0 +1,4 @@
+.idea
+venv
+*sqlite*
+github_credentials.py
