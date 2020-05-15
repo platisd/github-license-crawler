@@ -37,7 +37,7 @@ g = Github(login_or_token=github_credentials.access_token, per_page=200)
 
 # It will take too long to collect all repos, so jump over many of them
 # to get a sampling from a different time period
-repo_id_step_size = 1000000
+repo_id_step_size = 10000000
 repo_id_to_start = latest_repo_id_in_database + repo_id_step_size
 for repo in g.get_repos(since=repo_id_to_start, visibility="public"):
     try:
