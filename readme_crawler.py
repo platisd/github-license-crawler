@@ -18,16 +18,19 @@ all_readme_with_unknown_license = cur.fetchall()
 
 repos_with_license_in_readme = []
 for repo_id, readme in all_readme_with_unknown_license:
-    readme_text = base64.b64decode(readme).decode('utf-8')
-    if re.search('license', readme_text, re.IGNORECASE):
-        update_license_type = """
-        UPDATE repos
-        SET repo_license = 'readme'
-        WHERE repo_id = %s
-        """ % repo_id
-        cur.execute(update_license_type)
-        con.commit()
-        print(repo_id)
+    try:
+        readme_text = base64.b64decode(readme).decode('utf-8')
+        if re.search('license', readme_text, re.IGNORECASE):
+            update_license_type = """
+            UPDATE repos
+            SET repo_license = 'readme'
+            WHERE repo_id = %s
+            """ % repo_id
+            cur.execute(update_license_type)
+            con.commit()
+            print(repo_id)
+    except Exception as e:
+        print(e)
 
 cur.close()
 con.close()
